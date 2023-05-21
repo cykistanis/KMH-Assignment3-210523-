@@ -227,7 +227,7 @@ router.post('/login', async (req, res) => {
 
             if (!user) {
                 req.flash("error_messages", "Sorry, the authentication details you provided does not work.")
-                return res.redirect('/users/profile');
+                return res.redirect('/users/login');
             } else {
                 // check if the password matches
                 if (user.get('password') === getHashedPassword(form.data.password)) {
@@ -253,7 +253,7 @@ router.post('/login', async (req, res) => {
             })
         }
     })
-},checkIfAuthenticated)
+})
 
 router.get('/profile', checkIfAuthenticated,(req, res) => {
     const user = req.session.user;
@@ -271,18 +271,9 @@ router.get('/profile', checkIfAuthenticated,(req, res) => {
 
 
   router.get("/logout", (req, res) => {
-    if (req.session.user) {
-      delete req.session.user; // remove user data from session
-      req.session.destroy((err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/users/login");
-        }
-      });
-    } else {
-      res.redirect("/users/login");
-    }
+    req.session.user = null;
+    req.flash('success_messages', "You have been logged out");
+    res.redirect('/users/login');
   });
 
 module.exports = router;

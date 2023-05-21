@@ -1,12 +1,14 @@
 {{#extends 'base'}}
 
 {{#block 'content'}}
+<input type="hidden" name="_csrf" value="{{csrfToken}}"/>
 <h1>User Profile</h1>
 <ul>
     <li>Username: {{user.username}}</li>
     <li>Email:{{user.email}}</li>
+    <p class="card-text">{{user.email}}</p>
+    <a href="/users/logout" class="card-link">Logout</a>
 </ul>
 
 {{/block}}
-
 {{/extends}}
