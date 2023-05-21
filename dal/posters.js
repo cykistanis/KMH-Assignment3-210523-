@@ -1,4 +1,4 @@
-// import in the Product model
+// import in the poster model
 const { Poster, MediaProperty, Tag } = require('../models');
 
 const getAllMediaProperties = async () => {

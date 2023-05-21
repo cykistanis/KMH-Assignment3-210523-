@@ -7,6 +7,7 @@ const landingRoutes = require('./routes/landing')
 const posterRoutes = require('./routes/posters')
 const usersRoutes = require('./routes/users')
 const cloudinaryRoutes = require('./routes/cloudinary')
+const shoppingCartRoutes = require('./routes/shoppingCart')
 
 
 const session = require('express-session');
@@ -97,6 +98,7 @@ async function main() {
   app.use('/posters', posterRoutes);	
   app.use('/users', usersRoutes);	
   app.use('/cloudinary', cloudinaryRoutes);	
+  app.use('/shoppingCart',shoppingCartRoutes );	
   
 
 
