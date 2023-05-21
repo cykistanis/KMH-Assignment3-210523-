@@ -20,7 +20,11 @@ const getPosterByID = async (posterId) => {
     });
 }
 
+const getAllPosters = async () => {
+    return await Poster.fetchAll();
+}
+
 module.exports = {
-    getAllMediaProperties, getAllTags, getPosterByID
+    getAllMediaProperties, getAllTags, getPosterByID, getAllPosters
 }
 

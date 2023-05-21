@@ -61,6 +61,14 @@ router.get('/', async (req, res) => {
 
 })
 
+router.get('/success', function(req,res){
+    res.send("Payment succeed");
+})
+
+router.get('/error', function(req,res){
+    res.send("Payment declined");
+})
+
 router.post('/process_payment', express.raw({type: 'application/json'}), async (req, res) => {
     let payload = req.body;
     let endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;

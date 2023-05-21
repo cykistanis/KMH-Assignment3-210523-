@@ -46,7 +46,8 @@
                 {{/each}}
             </td>
             <td>
-                {{this.date}}
+                
+                <img src="{{this.image_url}}" class="imageclass"/>
             </td>
             <td>
                 {{this.stock}}
@@ -70,3 +71,14 @@
 {{/block}}
 
 {{/extends}}
+
+<style>
+
+img.imageclass {
+    height: 300px;
+    width: 500px;
+}
+
+
+</style>
+
