@@ -1,0 +1,9 @@
+{
+    "dev": {
+      "driver": "mysql",
+      "user": "demo",
+      "password":"bar",
+      "database":"poster_shop",
+      "host":"127.0.0.1"
+    }
+  }
