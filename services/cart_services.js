@@ -50,7 +50,7 @@ class CartServices {
     }
 
     async addToCart(posterId, quantity) {
-        // check if uuser has added the product to the shopping cart before
+        // check if uuser has added the poster to the shopping cart before
         let cartItem = await cartDataLayer.getCartItemByUserAndPoster(this.user_id, posterId);
 
         if (cartItem) {
