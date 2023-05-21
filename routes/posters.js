@@ -43,8 +43,12 @@ router.get('/create', async (req, res) => {
 
     const allTags = await Tag.fetchAll().map( tag => [tag.get('id'), tag.get('name')])
     const posterForm = createPosterForm(allMediaProperties,allTags);
-    res.render('posters/create',{
-        'form': posterForm.toHTML(bootstrapField)
+    
+    res.render('posters/create', {
+        'form': posterForm.toHTML(bootstrapField),
+        cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME,
+        cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+        cloudinaryPreset: process.env.CLOUDINARY_UPLOAD_PRESET
     })
 })
 
@@ -64,6 +68,7 @@ router.post('/create', async (req, res) => {
             if (tags) {
                 await poster.tags().attach(tags.split(","));
             }
+            req.flash("success_messages", `New Poster ${poster.get('name')} has been created`)
 
             res.redirect('/posters');
         },
@@ -102,6 +107,9 @@ router.get('/:poster_id/update', async (req, res) => {
     posterForm.fields.stock.value = poster.get('stock');
     posterForm.fields.height.value = poster.get('height');
     posterForm.fields.width.value = poster.get('width');
+    posterForm.fields.mediaproperty_id.value = poster.get('mediaproperty_id');
+    // 1 - set the image url in the poster form
+    posterForm.fields.image_url.value = poster.get('image_url');
 
     // fill in the multi-select for the tags
     let selectedTags = await poster.related('tags').pluck('id');
@@ -109,7 +117,12 @@ router.get('/:poster_id/update', async (req, res) => {
 
     res.render('posters/update', {
         'form': posterForm.toHTML(bootstrapField),
-        'poster': poster.toJSON()
+        'poster': poster.toJSON(),
+        // 2 - send to the HBS file the cloudinary information
+        cloudinaryName: process.env.CLOUDINARY_CLOUD_NAME,
+        cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+        cloudinaryPreset: process.env.CLOUDINARY_UPLOAD_PRESET
+
     })
 
 })
@@ -175,7 +188,7 @@ router.get('/:poster_id/delete', async(req,res)=>{
 });
 
 router.post('/:poster_id/delete', async(req,res)=>{
-    // fetch the product that we want to delete
+    // fetch the poster that we want to delete
     const poster = await Poster.where({
         'id': req.params.poster_id
     }).fetch({
