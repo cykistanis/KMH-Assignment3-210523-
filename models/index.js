@@ -36,4 +36,10 @@ const CartItem = bookshelf.model('CartItem', {
 
 })
 
-module.exports = { Poster, MediaProperty, Tag, User,CartItem };
+const Order = bookshelf.model('Order', {
+    tableName: 'orders',
+});
+
+
+
+module.exports = { Poster, MediaProperty, Tag, User,CartItem, Order };

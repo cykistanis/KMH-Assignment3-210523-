@@ -9,6 +9,7 @@ const usersRoutes = require('./routes/users')
 const cloudinaryRoutes = require('./routes/cloudinary')
 const shoppingCartRoutes = require('./routes/shoppingCart')
 const checkoutRoutes = require('./routes/checkout')
+const order = require('./routes/orders');
 const api = {  posters: require('./routes/api/poster')}
 
 
@@ -116,6 +117,7 @@ async function main() {
   app.use('/cloudinary', cloudinaryRoutes);	
   app.use('/shoppingCart',shoppingCartRoutes );	
   app.use('/checkout',checkoutRoutes );
+  app.use('/orders',order);
   app.use('/api/poster', express.json(), api.posters);	
   
 
