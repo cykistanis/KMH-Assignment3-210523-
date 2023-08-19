@@ -5,7 +5,34 @@
    {{{form}}}
     <input type="submit" class="mb-3 mt-3 btn btn-primary" value="Search"/>
 </form>
-<table class="table">
+<div class="row">
+    {{#each posters}}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{this.image_url}}" class="card-img-top" alt="{{this.title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <p class="card-text"><strong>Media Property:</strong> {{this.mediaproperty.name}}</p>
+                <p class="card-text"><strong>Cost:</strong> {{this.cost}}</p>
+                <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
+                <p class="card-text"><strong>Dimensions:</strong> {{this.height}} x {{this.width}}</p>
+                <div>
+                    <strong>Tags:</strong>
+                    {{#each this.tags}}
+                    <span class="badge bg-secondary">{{this.name}}</span>
+                    {{/each}}
+                </div>
+                <a href="/shoppingCart/{{this.id}}/add" class="btn btn-success mt-3">Add to Cart</a>
+                <a href="/posters/{{this.id}}/update" class="btn btn-primary mt-3">Update</a>
+                <a href="/posters/{{this.id}}/delete" class="btn btn-danger mt-3">Delete</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+{{!-- <table class="table">
     <thead>
         <tr>
             <th>ID</th>
@@ -67,7 +94,7 @@
         </tr>
         {{/each}}
     </tbody>
-</table>
+</table> --}}
 {{/block}}
 
 {{/extends}}
